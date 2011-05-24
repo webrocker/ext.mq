@@ -1,0 +1,47 @@
+h2. Synopsis
+
+Ext.MQ is a simple message queue implementation with a webservice gateway for easy remoting. It simplyfies loose coupling between components and webservice communication a lot. 
+I really dont't liked the Ext.Direct mechanism, so I developed this small class to connect a Ext application to a Zend Framework or Symfony backend.
+
+
+h2. Setup
+
+Just include *ext.mq.js* in Your html file and setup the webservice base url if it is different than */*:
+
+<script include="src/ext.mq.js"></script>
+<script language="javascript">
+    MQ.webserviceurl = '/api/';
+</script>
+
+
+h2. Publishing messages
+
+<script language="javascript">
+    MQ.publish('ui.detailscreen.show', {id: 'webrocker'});
+</script>
+
+
+h2. Subscribing messages
+
+<script language="javascript">
+    MQ.subscribe(/ui\.detailscreen\.(.*)/, myDetailscreenHandler);
+</script>
+
+
+h2. Webservice gateway
+
+Messages starting with *webservice.* are automagically converted into AJAX calls and the responses will be converted to messages, too.
+
+<script language="javascript">
+    MQ.publish('webservice.ressource.user.create', {id: 'webrocker'});
+</script>
+
+This message will translate into an AJAX call to */ressource/user/create/*. 
+In case of success the result will be JSON-decoded and the resulting object will be sent in the message *webservice.ressource.user.create.success*.
+If an error occurs the result will be sent in the message *webservice.ressource.user.create.failure*.
+
+To implement an universal handler for webservice failures you can simply subscribe webservice.*.failure as follows:
+
+<script language="javascript">
+    MQ.subscribe(\webservice/.(.*)/.failure\, myhandlerfunc);
+</script>
