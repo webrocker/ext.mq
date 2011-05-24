@@ -7,41 +7,58 @@ I really dont't liked the Ext.Direct mechanism, so I developed this small class 
 h2. Setup
 
 Just include *ext.mq.js* in Your html file and setup the webservice base url if it is different than */*:
-
+<pre>
+<code>
 <script include="src/ext.mq.js"></script>
 <script language="javascript">
     MQ.webserviceurl = '/api/';
 </script>
-
+</code>
+</pre>
 
 h2. Publishing messages
 
+<pre>
+<code>
 <script language="javascript">
     MQ.publish('ui.detailscreen.show', {id: 'webrocker'});
 </script>
-
+</code>
+</pre>
 
 h2. Subscribing messages
 
+<pre>
+<code>
 <script language="javascript">
     MQ.subscribe(/ui\.detailscreen\.(.*)/, myDetailscreenHandler);
 </script>
-
+</code>
+</pre>
 
 h2. Webservice gateway
 
 Messages starting with *webservice.* are automagically converted into AJAX calls and the responses will be converted to messages, too.
 
+<pre>
+<code>
 <script language="javascript">
     MQ.publish('webservice.ressource.user.create', {id: 'webrocker'});
 </script>
+</code>
+</pre>
 
 This message will translate into an AJAX call to */ressource/user/create/*. 
 In case of success the result will be JSON-decoded and the resulting object will be sent in the message *webservice.ressource.user.create.success*.
 If an error occurs the result will be sent in the message *webservice.ressource.user.create.failure*.
 
-To implement an universal handler for webservice failures you can simply subscribe webservice.*.failure as follows:
-
+To implement an universal handler for webservice failures you can simply subscribe *webservice./*.failure* as follows:
+<pre>
+<code>
 <script language="javascript">
     MQ.subscribe(\webservice/.(.*)/.failure\, myhandlerfunc);
 </script>
+</code>
+</pre>
+
+If you need another URL scheme, just overwrite the *MQ.urlgenerator* method.
