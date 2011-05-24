@@ -1,7 +1,7 @@
 h2. Synopsis
 
 Ext.MQ is a simple message queue implementation with a webservice gateway for easy remoting. It simplyfies loose coupling between components and webservice communication a lot. 
-I really dont't liked the Ext.Direct mechanism, so I developed this small class to connect a Ext application to a Zend Framework or Symfony backend.
+I really didnt't like the Ext.Direct mechanism, so I developed this small class to connect a Ext application to a Zend Framework or Symfony backend.
 
 
 h2. Setup
