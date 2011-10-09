@@ -40,7 +40,7 @@ MQ.publish = function (_pattern, _payload) {
 
 MQ.urlgenerator = function (_pattern) {
 	var clean = _pattern.replace(new RegExp(/webservice\./), '');
-	return this.webserviceurl + clean.replace(new RegExp(/\./), '/') + '/';
+	return this.webserviceurl + clean.replace(new RegExp(/\./g), '/') + '/';
 }
 
 MQ.dispatch = function (_pattern, _payload) {
